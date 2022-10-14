@@ -264,15 +264,14 @@ export default class MarkerLayer extends InteractiveLayer {
       arg: 'icon',
       // there was an old leaflet bug where draggability is lost on icon change
       updateFn(layer, value) {
-        if (layer.dragging) {
-          let enabled = layer.dragging.enabled();
-          layer.setIcon(value);
+        if (!layer.dragging) { return }
+        let enabled = layer.dragging.enabled();
+        layer.setIcon(value);
 
-          if (enabled) {
-            layer.dragging.enable();
-          } else {
-            layer.dragging.disable();
-          }
+        if (enabled) {
+          layer.dragging.enable();
+        } else {
+          layer.dragging.disable();
         }
       }
     }
